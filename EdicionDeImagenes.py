@@ -17,3 +17,11 @@ image_path = filedialog.askopenfilename(
     title='Seleccione la imagen'
 )
 
+# Separar los canales RGB
+original_image = Image.open(image_path)  # Cargar la imagen .jpg
+image_np = np.array(original_image)  # Covnertir la imagen a un array NumPy
+R = image_np[:, :, 0]
+G = image_np[:, :, 1]
+B = image_np[:, :, 2]
+
+
