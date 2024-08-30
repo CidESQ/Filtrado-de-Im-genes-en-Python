@@ -1,3 +1,8 @@
+"""
+Author: Cid Emmanuel Esquivel González
+Github: https://github.com/CidESQ/Filtrado-de-Im-genes-en-Python
+Topic: Tarea 1 Vision Artificial
+"""
 # Librerias
 from tkinter import filedialog
 import matplotlib
@@ -9,8 +14,7 @@ import matplotlib.pyplot as plt
 
 # Abrir el cuadro de dialogo para seleccionar una imagen
 image_path = filedialog.askopenfilename(title='Seleccione la imagen')
-# Leer imagen seleccionada
-imagen = cv2.imread(image_path)
+imagen = cv2.imread(image_path)  # Leer imagen seleccionada
 imagen_principal = cv2.cvtColor(imagen, cv2.COLOR_BGR2RGB)
 
 # Separar los canales RGB
@@ -23,15 +27,15 @@ kernel_1 = np.ones((3, 3), np.float32) / 9  # Blur / media
 kernel_2 = np.array([[1, 2, 1], [2, 4, 2], [1, 2, 1]], np.float32) / 16  # Gausiano
 kernel_3 = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]], np.float32)  # Realce / Sharpening
 kernel_4 = np.array([[0, 1, 0], [1, -4, 1], [0, 1, 0]], np.float32)  # Laplaciano / Bordes en todas direcciones
-kernel_5 = np.array([[-1, 0, -1], [-1, 0, -1], [-1, 0, -1]], np.float32)  # Filtro Prewitt horizontal
-
+kernel_5 = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], np.float32)  # Filtro Sobel Horizontal
+# Convolcion de kernels: kernel_combinado = convolve2d(kernel_a, kernel_b, mode='full')
 
 # Funcion
 def aplicar_kernel(kernel):
-    R_kernel = cv2.filter2D(R, -1, kernel)
-    G_kernel = cv2.filter2D(G, -1, kernel)
-    B_kernel = cv2.filter2D(B, -1, kernel)
-    imagen_filtrada_rgb = cv2.merge((R_kernel, G_kernel, B_kernel))
+    r_kernel = cv2.filter2D(R, -1, kernel)
+    g_kernel = cv2.filter2D(G, -1, kernel)
+    b_kernel = cv2.filter2D(B, -1, kernel)
+    imagen_filtrada_rgb = cv2.merge((r_kernel, g_kernel, b_kernel))
     # imagen_filtrada_bgr = cv2.cvtColor(imagen_filtrada_rgb, cv2.COLOR_RGB2BGR)  # mostrar con OpenCV
     return imagen_filtrada_rgb
 
@@ -78,7 +82,7 @@ def interfaz_2():
     cv2.imshow('Filtro Gausiano', cv2.cvtColor(aplicar_kernel(kernel_2), cv2.COLOR_RGB2BGR))
     cv2.imshow('Sharpening', cv2.cvtColor(aplicar_kernel(kernel_3), cv2.COLOR_RGB2BGR))
     cv2.imshow('Laplaciano', cv2.cvtColor(aplicar_kernel(kernel_4), cv2.COLOR_RGB2BGR))
-    cv2.imshow('Prewitt', cv2.cvtColor(aplicar_kernel(kernel_5), cv2.COLOR_RGB2BGR))
+    cv2.imshow('Sobel', cv2.cvtColor(aplicar_kernel(kernel_5), cv2.COLOR_RGB2BGR))
     # Con el teclado pasamos a la imagen
     cv2.waitKey(0)
     cv2.destroyAllWindows()
@@ -101,6 +105,6 @@ Explicacion filtros/kernels
 4- Laplaciano: Resalta los bordes y las áreas de transición en la imagen al calcular la segunda derivada de la
     intensidad de los píxeles.
     
-5- Prewitt: Realza las transiciones verticales en la imagen, identificando bordes horizontales. Esto se usa para 
-    detectar cambios de intensidad en la dirección horizontal.
+5- Sobel: está diseñado para resaltar los cambios en la intensidad de la imagen que ocurren a lo largo del eje
+    horizontal. En términos más simples, detecta bordes que son verticales en la imagen.
 '''
