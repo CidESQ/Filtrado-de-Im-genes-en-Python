@@ -86,3 +86,21 @@ def interfaz_2():
 
 # interfaz_1()
 interfaz_2()
+
+'''
+Explicacion filtros/kernels
+
+1- Blur: Suaviza la imagen promediando los valores de los píxeles vecinos. Esto reduce el ruido y los detalles finos, 
+    produciendo un efecto de desenfoque.
+    
+2- Gaussiano: También se usa para suavizar la imagen, pero de una manera que preserva mejor los bordes comparado con el
+    blur simple. El filtro gaussiano reduce el ruido mientras mantiene la estructura de la imagen más nítida.
+    
+3- Sharpening: Aumenta el contraste y la nitidez de la imagen, destacando los detalles y bordes.
+
+4- Laplaciano: Resalta los bordes y las áreas de transición en la imagen al calcular la segunda derivada de la
+    intensidad de los píxeles.
+    
+5- Prewitt: Realza las transiciones verticales en la imagen, identificando bordes horizontales. Esto se usa para 
+    detectar cambios de intensidad en la dirección horizontal.
+'''
