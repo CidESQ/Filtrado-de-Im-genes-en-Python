@@ -3,6 +3,7 @@ from tkinter import filedialog
 import matplotlib
 import cv2
 import numpy as np
+
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
@@ -35,40 +36,53 @@ def aplicar_kernel(kernel):
     return imagen_filtrada_rgb
 
 
-# Interfaz Gráfica
-figura = plt.figure()
-# Imagen Principal
-ax1 = figura.add_subplot(3, 3, 1)
-ax1.imshow(imagen_principal)
-ax1.set_title("Imagen Principal")
+def interfaz_1():
+    # Interfaz Gráfica
+    figura = plt.figure()
+    # Imagen Principal
+    ax1 = figura.add_subplot(3, 3, 1)
+    ax1.imshow(imagen_principal)
+    ax1.set_title("Imagen Principal")
 
-# Filtro 1
-ax2 = figura.add_subplot(3, 3, 2)
-ax2.imshow(aplicar_kernel(kernel_1))
-ax2.set_title("Filtro 1")
+    # Filtro 1
+    ax2 = figura.add_subplot(3, 3, 2)
+    ax2.imshow(aplicar_kernel(kernel_1))
+    ax2.set_title("Filtro 1")
 
-# Filtro 2
-ax3 = figura.add_subplot(3, 3, 3)
-ax3.imshow(aplicar_kernel(kernel_2))
-ax3.set_title("Filtro 2")
+    # Filtro 2
+    ax3 = figura.add_subplot(3, 3, 3)
+    ax3.imshow(aplicar_kernel(kernel_2))
+    ax3.set_title("Filtro 2")
 
-# Filtro 3
-ax4 = figura.add_subplot(3, 3, 4)
-ax4.imshow(aplicar_kernel(kernel_3))
-ax4.set_title("Filtro 3")
+    # Filtro 3
+    ax4 = figura.add_subplot(3, 3, 4)
+    ax4.imshow(aplicar_kernel(kernel_3))
+    ax4.set_title("Filtro 3")
 
-# Filtro 4
-ax5 = figura.add_subplot(3, 3, 5)
-ax5.imshow(aplicar_kernel(kernel_4))
-ax5.set_title("Filtro 4")
+    # Filtro 4
+    ax5 = figura.add_subplot(3, 3, 5)
+    ax5.imshow(aplicar_kernel(kernel_4))
+    ax5.set_title("Filtro 4")
 
-# Filtro 5
-ax6 = figura.add_subplot(3, 3, 6)
-ax6.imshow(aplicar_kernel(kernel_5))
-ax6.set_title("Filtro 5")
+    # Filtro 5
+    ax6 = figura.add_subplot(3, 3, 6)
+    ax6.imshow(aplicar_kernel(kernel_5))
+    ax6.set_title("Filtro 5")
 
-plt.show()
+    plt.show()
 
-# Con el teclado pasamos a la imagen
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
+
+def interfaz_2():
+    cv2.imshow('Imagen Original', imagen)
+    cv2.imshow('Filtro Blur', cv2.cvtColor(aplicar_kernel(kernel_1), cv2.COLOR_RGB2BGR))
+    cv2.imshow('Filtro Gausiano', cv2.cvtColor(aplicar_kernel(kernel_2), cv2.COLOR_RGB2BGR))
+    cv2.imshow('Sharpening', cv2.cvtColor(aplicar_kernel(kernel_3), cv2.COLOR_RGB2BGR))
+    cv2.imshow('Laplaciano', cv2.cvtColor(aplicar_kernel(kernel_4), cv2.COLOR_RGB2BGR))
+    cv2.imshow('Prewitt', cv2.cvtColor(aplicar_kernel(kernel_5), cv2.COLOR_RGB2BGR))
+    # Con el teclado pasamos a la imagen
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+# interfaz_1()
+interfaz_2()
