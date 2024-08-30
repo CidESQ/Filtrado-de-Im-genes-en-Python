@@ -5,12 +5,8 @@ Topic: Tarea 1 Vision Artificial
 """
 # Librerias
 from tkinter import filedialog
-import matplotlib
 import cv2
 import numpy as np
-
-matplotlib.use('TkAgg')
-import matplotlib.pyplot as plt
 
 # Abrir el cuadro de dialogo para seleccionar una imagen
 image_path = filedialog.askopenfilename(title='Seleccione la imagen')
@@ -38,42 +34,6 @@ def aplicar_kernel(kernel):
     imagen_filtrada_rgb = cv2.merge((r_kernel, g_kernel, b_kernel))
     # imagen_filtrada_bgr = cv2.cvtColor(imagen_filtrada_rgb, cv2.COLOR_RGB2BGR)  # mostrar con OpenCV
     return imagen_filtrada_rgb
-
-
-def interfaz_1():
-    # Interfaz Gráfica
-    figura = plt.figure()
-    # Imagen Principal
-    ax1 = figura.add_subplot(3, 3, 1)
-    ax1.imshow(imagen_principal)
-    ax1.set_title("Imagen Principal")
-
-    # Filtro 1
-    ax2 = figura.add_subplot(3, 3, 2)
-    ax2.imshow(aplicar_kernel(kernel_1))
-    ax2.set_title("Filtro 1")
-
-    # Filtro 2
-    ax3 = figura.add_subplot(3, 3, 3)
-    ax3.imshow(aplicar_kernel(kernel_2))
-    ax3.set_title("Filtro 2")
-
-    # Filtro 3
-    ax4 = figura.add_subplot(3, 3, 4)
-    ax4.imshow(aplicar_kernel(kernel_3))
-    ax4.set_title("Filtro 3")
-
-    # Filtro 4
-    ax5 = figura.add_subplot(3, 3, 5)
-    ax5.imshow(aplicar_kernel(kernel_4))
-    ax5.set_title("Filtro 4")
-
-    # Filtro 5
-    ax6 = figura.add_subplot(3, 3, 6)
-    ax6.imshow(aplicar_kernel(kernel_5))
-    ax6.set_title("Filtro 5")
-
-    plt.show()
 
 
 def interfaz_2():
