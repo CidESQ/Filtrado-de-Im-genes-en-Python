@@ -2,6 +2,11 @@
 Author: Cid Emmanuel Esquivel González
 Github: https://github.com/CidESQ/Filtrado-de-Im-genes-en-Python
 Topic: Tarea 1 Vision Artificial
+Instrucciones:
+    ~ Ejecutar el programa
+    ~ Seleccionar imagen
+    ~ Ver las diferentes ventanas con cada filtro
+    ~ Terminar -> Presionar tecla '0'
 """
 # Librerias
 from tkinter import filedialog
@@ -23,9 +28,12 @@ kernel_1 = np.ones((3, 3), np.float32) / 9  # Blur / media
 kernel_2 = np.array([[1, 2, 1], [2, 4, 2], [1, 2, 1]], np.float32) / 16  # Gausiano
 kernel_3 = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]], np.float32)  # Realce / Sharpening
 kernel_4 = np.array([[0, 1, 0], [1, -4, 1], [0, 1, 0]], np.float32)  # Laplaciano / Bordes en todas direcciones
-kernel_5 = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], np.float32)  # Filtro Sobel Horizontal
-# Convolcion de kernels: kernel_combinado = convolve2d(kernel_a, kernel_b, mode='full')
+kernel_5 = np.array([[-2, -1, 0], [-1, 1, 1], [0, 1, 2]], np.float32)  # Filtro Emboss
+kernel_6 = np.array([[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]], np.float32)  # Filtro High-Pass
+kernel_7 = np.array([[1, 0], [0, -1]], np.float32)  # Filtro Robert Cross
 
+
+# Convolcion de kernels: kernel_combinado = convolve2d(kernel_a, kernel_b, mode='full')
 # Funcion
 def aplicar_kernel(kernel):
     r_kernel = cv2.filter2D(R, -1, kernel)
@@ -42,7 +50,9 @@ def interfaz_2():
     cv2.imshow('Filtro Gausiano', cv2.cvtColor(aplicar_kernel(kernel_2), cv2.COLOR_RGB2BGR))
     cv2.imshow('Sharpening', cv2.cvtColor(aplicar_kernel(kernel_3), cv2.COLOR_RGB2BGR))
     cv2.imshow('Laplaciano', cv2.cvtColor(aplicar_kernel(kernel_4), cv2.COLOR_RGB2BGR))
-    cv2.imshow('Sobel', cv2.cvtColor(aplicar_kernel(kernel_5), cv2.COLOR_RGB2BGR))
+    cv2.imshow('Emboss', cv2.cvtColor(aplicar_kernel(kernel_5), cv2.COLOR_RGB2BGR))
+    cv2.imshow('High pass', cv2.cvtColor(aplicar_kernel(kernel_6), cv2.COLOR_RGB2BGR))
+    cv2.imshow('Robert Cross', cv2.cvtColor(aplicar_kernel(kernel_7), cv2.COLOR_RGB2BGR))
     # Con el teclado pasamos a la imagen
     cv2.waitKey(0)
     cv2.destroyAllWindows()
@@ -65,6 +75,11 @@ Explicacion filtros/kernels
 4- Laplaciano: Resalta los bordes y las áreas de transición en la imagen al calcular la segunda derivada de la
     intensidad de los píxeles.
     
-5- Sobel: está diseñado para resaltar los cambios en la intensidad de la imagen que ocurren a lo largo del eje
-    horizontal. En términos más simples, detecta bordes que son verticales en la imagen.
+5- Emboss: está diseñado para crear un efecto de relieve que resalta los bordes en la imagen, dándole un aspecto
+    tridimensional.
+
+6- High-Pass: resalta los detalles finos en la imagen, eliminando las frecuencias bajas (como áreas suaves).
+
+7- Robert cross:  Es un filtro de detección de bordes que resalta los bordes en una diagonal particular, 
+    utilizado comúnmente para detectar cambios rápidos en la intensidad de la imagen.
 '''
